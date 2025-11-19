@@ -21,6 +21,8 @@ return new class extends Migration
             $table->enum('role',['admin','user'])->default('user')->nullable();
             $table->integer('streak')->nullable();
             $table->integer('xp')->nullable();
+            $table->string('imageUri')->nullable();
+            $table->foreignId('id_rank')->constrained('ranks')->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->softDeletes();

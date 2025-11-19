@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ranks', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
+            $table->string('imageUri')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
