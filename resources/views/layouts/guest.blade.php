@@ -5,10 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'SIKOCAK') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap">
+        <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
@@ -16,20 +16,20 @@
     </head>
 
 
-<body class="
-    min-h-screen
-    bg-lime-400
-    bg-cover bg-center bg-no-repeat
-    flex items-center justify-center
-    font-sans antialiased
-">
+    <body class="
+        min-h-screen
+        bg-lime-400
+        bg-cover bg-center bg-no-repeat
+        flex items-center justify-center
+        font-sans antialiased
+    ">
 
-    <!-- Wrapper -->
-    <div class="max-w-3/4 sm:max-w-2xl bg-white rounded-3xl shadow-xl p-10 border-2 border-black ">
-        {{ $slot }}
-    </div>
+        <!-- Wrapper -->
+        <div class="max-w-3/4 sm:max-w-2xl bg-white rounded-3xl shadow-xl p-10 border-2 border-black ">
+            {{ $slot }}
+        </div>
 
-</body>
+    </body>
 </html>
 
     </body>
