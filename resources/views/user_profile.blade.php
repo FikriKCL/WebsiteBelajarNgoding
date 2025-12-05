@@ -12,5 +12,14 @@
         @else
             <x-profile.bronze-profile :user="$users" />
         @endif
+
+        <form action="{{ route('logout') }}" method="POST" class="flex justify-center mt-4">
+    @csrf
+        <button type="submit"
+            class="w-32 h-12 bg-[#FF5C5C] border-2 border-black rounded-full 
+                shadow-bottomSm py-2 text-lg font-semibold">
+            Logout
+        </button>
+    </form>
     </div>
 </x-app-layout>

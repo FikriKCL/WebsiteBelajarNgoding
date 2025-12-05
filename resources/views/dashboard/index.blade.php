@@ -23,8 +23,9 @@
             <!-- Left Section - Lessons -->
             <div class="space-y-6">
                 <!-- Profile Card -->
-                
-                <x-dashboard.player-card :user="$user" :header="$header"/>
+                <a href = "{{route("leaderboard.index")}} ">
+                    <x-dashboard.player-card :user="$user" :header="$header"/>
+                </a>
 
                 <!-- Lessons Panel -->
                 <div class="bg-white rounded-3xl border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">

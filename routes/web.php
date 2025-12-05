@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/exercise/{exercise}', [ExerciseController::class, 'show'])->name('exercise.show');
     Route::post('/exercise/{exercise}/submit', [ExerciseController::class, 'submit'])->name('exercise.submit');
 
-    Route::get('/leaderboard', [LeaderboardController::class, 'index']);
+    Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard.index');
    
     });
 
