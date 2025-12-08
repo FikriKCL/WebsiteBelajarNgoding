@@ -1,13 +1,20 @@
-<x-guest-layout>
+<x-register-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <!-- Name -->
-        <div>
+        <div class="mt-6">
             <!-- <x-input-label for="name" :value="__('Name')" /> -->
             <x-text-input id="name" class="block w-full" type="text" name="name" :value="old('name')" placeholder="Nama" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-error :messages="$errors->get('name')"  class="w-auto"/>
         </div>
+
+        <div class="mt-6">
+            <!-- <x-input-label for="name" :value="__('Username')" /> -->
+            <x-text-input id="username" class="block w-full" type="text" name="username" :value="old('username')" placeholder="Username" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+        </div>
+
 
         <!-- Email Address -->
         <div class="mt-4">
@@ -33,7 +40,7 @@
         <div class="mt-4">
             <!-- <x-input-label for="password_confirmation" :value="__('Confirm Password')" /> -->
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full "
+            <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
                             placeholder="Ulangi Password"
                             name="password_confirmation" required autocomplete="new-password" />
@@ -56,4 +63,11 @@
             
         </div>
     </form>
-</x-guest-layout>
+
+        <div class="flex items-center justify-center md:w-1/2 pb-5">
+                <div class=" text-2xl font-semibold md:ml-12 text-left md:text-3xl leading-tight top-10 ">
+                    Selamat Datang
+                    <p>Jagoan!</p>
+                </div>
+            </div>
+</x-register-layout>

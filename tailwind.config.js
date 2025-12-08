@@ -17,7 +17,6 @@ export default {
         },
     },
 
-    
 
     theme: {
         extend: {
@@ -37,7 +36,11 @@ export default {
                 sm: '640px',
                 md: '768px',
                 lg: '1024px',
-            }
+            },
+
+            backgroundImage: {
+            'auth-bg': "url('/images/background.png')",
+         },
     },
 
     

@@ -14,7 +14,6 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'name' => 'admin',
-                'uuid' => '1fa3685b-920c-3172-a436-be115a09f272',
                 'username' => "admin_ganteng",
                 'email' => 'admin@example.com',
                 'phone_number' => '089655399710',
@@ -24,8 +23,7 @@ class UserSeeder extends Seeder
                 'role' => 'admin',
             ],
             [
-                'name' => 'fikri',
-                'uuid' => '1fa3685b-920c-3172-a436-be115a09f271',
+                'name' => 'Fikri Alfathir',
                 'username' => "alfathir",
                 'email' => 'alfathir@upi.edu',
                 'phone_number' => '089655399710',

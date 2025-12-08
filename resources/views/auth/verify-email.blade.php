@@ -1,6 +1,6 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+<x-register-layout>
+    <div class="text-sm text-black ">
+        {{ __('Terima Kasih telah mendaftar! Tolong Verifikasi Emailmu, Jika tidak ada email silahkan tekan tombol kembali!.') }}
     </div>
 
     @if (session('status') == 'verification-link-sent')
@@ -13,19 +13,17 @@
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
 
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
-            </div>
+                    <x-login-button class="flex place-self-center w-auto h-auto uppercase bg-[#9DFF00] px-4 py-1 font-semibold text-sm tracking-tighter">
+                        {{ __('Kirim Ulang') }}
+                    </x-login-button>
         </form>
-
+{{-- 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
             <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
                 {{ __('Log Out') }}
             </button>
-        </form>
+        </form> --}}
     </div>
-</x-guest-layout>
+</x-register-layout>
