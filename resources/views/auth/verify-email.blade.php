@@ -18,12 +18,13 @@
             <button class="text-sm underline text-black">
                 Kembali ke Menu Sebelumnya
             </button>
+            <p class="text-sm">Jika sudah terverifikasi silahkan tutup jendela ini.</p>
         </form>
 
 
         @if (session('status') == 'verification-link-sent')
             <div class="font-medium text-sm text-green-600 text-center">
-                {{ __('Link Verifikasi yang baru telah dikirim. Silahkan cek kembali!.') }}
+                {{ __('Link Verifikasi yang baru telah dikirim. Cek kembali!.') }}
             </div>
         @endif
     </div>
