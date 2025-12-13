@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+      {{-- <-- INI COMMENT --> --}}
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -26,7 +27,7 @@
 
     <div>
         <!-- Wrapper -->
-        <div class="flex shrink-0 items-center md:w-[30rem] md:h-auto sm:max-w-2xl bg-white rounded-3xl shadow-xl p-10 border-2 border-black ">
+        <div class="w-60 flex shrink-0 items-center md:w-[30rem] md:h-auto bg-white rounded-3xl shadow-xl p-10 border-2 border-black ">
             {{ $slot }}
         </div>
     </div>
