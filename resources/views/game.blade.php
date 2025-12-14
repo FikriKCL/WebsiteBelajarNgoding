@@ -172,6 +172,9 @@
             })
             .catch(error => console.error('Error:', error));
         }
+
+        alert(@json(session('success')));
+
     </script>
 </body>
 </html>
