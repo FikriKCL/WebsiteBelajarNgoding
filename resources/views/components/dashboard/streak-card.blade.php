@@ -1,6 +1,6 @@
 @props(['user'])
 {{-- <-- INI COMMENT --> --}}
-<div class="md:w-32 md:h-16 bg-white mr-3 shadow-bottomSm rounded-xl border-2 border-black flex items-center gap-2 px-2">
+<div class="w-32 h-16 bg-white mr-3 shadow-bottomSm rounded-xl border-2 border-black flex items-center gap-2 px-2">
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

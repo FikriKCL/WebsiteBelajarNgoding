@@ -38,7 +38,7 @@ Route::middleware('auth', 'verified')->group(function () {
 
     // Route::post('/bug-report', [BugReportController::class, 'store'])->name('bug-report.store');
 
-       Route::get('/bug-report', function () {
+    Route::get('/bug-report', function () {
         return view('bug-report');   
     })->name('bug-report');
 
@@ -46,10 +46,10 @@ Route::middleware('auth', 'verified')->group(function () {
         ->name('bug-report.store');
     });
 
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/login');
-})->name('logout');
+    Route::post('/logout', function () {
+        Auth::logout();
+        return redirect('/login');
+    })->name('logout');
 
 
 
