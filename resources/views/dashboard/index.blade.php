@@ -34,7 +34,10 @@
       <header class="w-full mb-8">
             <div class="flex items-center gap-4">
                 <x-dashboard.player-header :user="$user" :header="$header"/>
-                <x-dashboard.streak-card :user="$user"/>
+                <div class="flex flex-row items-center gap-2">
+                    <x-bug-report-flag :user="$user" :header="$header"/>
+                    <x-dashboard.streak-card :user="$user"/>
+                </div>
             </div>
         </header>
 
