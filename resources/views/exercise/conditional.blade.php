@@ -205,45 +205,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ------------------ RADIO SELECTION ------------------ */
-    radios.forEach(input => {
-        input.addEventListener('change', () => {
-            if (locked) return;
-            locked = true;
+   radios.forEach(input => {
+    input.addEventListener('change', () => {
+        if (locked) return;
+        locked = true;
 
-            const action = input.dataset.action;
+        input.checked = true; // ensure the value is sent
+        const action = input.dataset.action;
 
-            Object.values(cars).flat().forEach(car => car && car.classList.remove('crash'));
-            crashEffect.style.display = 'none';
-            radios.forEach(r => r.disabled = true);
+        // Trigger car movement
+        if (action === 'back') moveRedCar(0, 70);
+        if (action === 'stop') {
+            cars.violet.forEach(car => car && car.setAttribute('transform', 'translate(-480,0)'));
+            cars.blue.forEach(car => car && car.setAttribute('transform', 'translate(460,0)'));
+        }
+        if (action === 'go') {
+            cars.violet.forEach(car => car && car.setAttribute('transform', 'translate(-300,0)'));
+            cars.blue.forEach(car => car && car.setAttribute('transform', 'translate(170,0)'));
+            moveRedCar(0, -110);
+        }
 
-            // Move cars
-            if (action === 'back') moveRedCar(0, 70);
-            if (action === 'stop') {
-                cars.violet.forEach(car => car && car.setAttribute('transform', 'translate(-480,0)'));
-                cars.blue.forEach(car => car && car.setAttribute('transform', 'translate(460,0)'));
+        const movementDuration = 650;
+        setTimeout(() => {
+            // Trigger crash based on action
+            if (action === 'back') {
+                crash([cars.red, cars.yellow]);
+                showCrashEffectOn(cars.yellow, 2);
             }
             if (action === 'go') {
-                cars.violet.forEach(car => car && car.setAttribute('transform', 'translate(-300,0)'));
-                cars.blue.forEach(car => car && car.setAttribute('transform', 'translate(170,0)'));
-                moveRedCar(0, -110);
+                crash([cars.red, ...cars.violet, ...cars.blue]);
+                showCrashEffectOn(cars.violet[1], 2);
             }
 
-            const movementDuration = 650;
-            setTimeout(() => {
-                // trigger crash based on selection
-                if (action === 'back') {
-                    crash([cars.red, cars.yellow]);
-                    showCrashEffectOn(cars.yellow, 2);
-                }
-                if (action === 'go') {
-                    crash([cars.red, ...cars.violet, ...cars.blue]);
-                    showCrashEffectOn(cars.violet[1], 2); // violet-car-2 at current location
-                }
-            }, movementDuration);
-
-            setTimeout(() => form.submit(), movementDuration + 2000);
-        });
+            // Submit the form **after animation**
+            form.submit();
+        }, movementDuration);
     });
+});
+
 
 });
 </script>
