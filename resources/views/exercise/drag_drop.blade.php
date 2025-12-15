@@ -21,17 +21,29 @@
 <div id="toast"></div>
 
 <div class="container mx-auto px-4 py-6">
+<header class="flex justify-between items-center mb-6 px-2 sm:px-0">
 
-<header class="flex justify-between items-center mb-8">
-    <a href="{{ route('dashboard') }}" class="bg-white px-6 py-3 rounded-full border-4 border-black shadow-[4px_4px_0]">
-        <span class="text-xl font-black">← Kembali</span>
+    <!-- KEMBALI -->
+    <a href="{{ route('dashboard') }}"
+       class="bg-white px-3 sm:px-6 py-2 sm:py-3 rounded-full border-4 border-black
+              shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]
+              hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]
+              transition-all text-center">
+        <span class="text-sm sm:text-xl font-black">← Kembali</span>
     </a>
-    <div class="bg-[#CCFF00] px-6 py-3 rounded-full border-4 border-black shadow-[4px_4px_0]">
-        <h1 class="text-2xl font-black">Level {{ $exerciseIndex + 1 }}</h1>
+
+    <!-- LEVEL -->
+    <div class="bg-[#CCFF00] px-3 sm:px-6 py-2 sm:py-3 rounded-full border-4 border-black
+                shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center">
+        <h1 class="text-sm sm:text-2xl font-black">Level {{ $exerciseIndex + 1 }}</h1>
     </div>
-    <div class="bg-[#FF9966] px-6 py-3 rounded-full border-4 border-black shadow-[4px_4px_0]">
-        <span class="text-xl font-black">{{ $user->xp }} XP</span>
+
+    <!-- XP -->
+    <div class="bg-[#FF9966] px-3 sm:px-6 py-2 sm:py-3 rounded-full border-4 border-black
+                shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center">
+        <span class="text-sm sm:text-xl font-black">{{ $user->xp }} XP</span>
     </div>
+
 </header>
 
 <form id="mazeForm" method="POST" action="{{ route('exercise.submit',$exercise->id) }}">
