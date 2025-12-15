@@ -6,23 +6,31 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Level {{ $exerciseIndex + 1 }} - Logika Kondisi</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+<style>
+        svg g {
+            transition: transform 0.6s ease;
+            transform-origin: center;
         }
-        .traffic-light-red {
-            background-color: #EF4444;
-            animation: blink 1.5s infinite;
+
+        .crash {
+            animation: crashShake 0.4s ease-in-out;
         }
-        .traffic-light-yellow {
-            background-color: #FCD34D;
+
+        @keyframes crashShake {
+            0%   { transform: translate(0, 0); }
+            20%  { transform: translate(-4px, 2px); }
+            40%  { transform: translate(4px, -2px); }
+            60%  { transform: translate(-3px, 1px); }
+            80%  { transform: translate(3px, -1px); }
+            100% { transform: translate(0, 0); }
         }
-        .traffic-light-green {
-            background-color: #10B981;
-        }
-    </style>
+
+
+</style>
+
 </head>
+  
+
 <body class="bg-[#F5F5F0] min-h-screen">
     <div class="container mx-auto px-4 py-6">
         <header class="flex justify-between items-center mb-8">
@@ -53,39 +61,16 @@
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Traffic Light Section -->
-                <div class="md:col-span-2">
-                    <div class="bg-white rounded-3xl border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-                        <h3 class="text-2xl font-black mb-6 text-center">Lampu Lalu Lintas</h3>
-                        
-                        <!-- Road Scene -->
-                        <div class="relative bg-gray-700 rounded-2xl border-4 border-black p-8 h-96 overflow-hidden">
-                            <!-- Road -->
-                            <div class="absolute bottom-0 left-0 right-0 h-32 bg-gray-600 border-t-4 border-yellow-400"></div>
-                            
-                            <!-- Traffic Light -->
-                            <div class="absolute top-8 right-1/2 transform translate-x-1/2 bg-black rounded-2xl p-4 w-24">
-                                <div class="flex flex-col gap-3">
-                                    <div class="w-16 h-16 rounded-full border-4 border-black traffic-light-red"></div>
-                                    <div class="w-16 h-16 rounded-full bg-gray-800 border-4 border-black"></div>
-                                    <div class="w-16 h-16 rounded-full bg-gray-800 border-4 border-black"></div>
-                                </div>
-                            </div>
-                            
-                            <!-- Car -->
-                            <div class="absolute bottom-36 left-8">
-                                <div class="w-32 h-20 bg-blue-500 rounded-lg border-4 border-black relative">
-                                    <div class="absolute -top-8 left-4 w-20 h-12 bg-blue-400 rounded-t-lg border-4 border-black"></div>
-                                    <div class="absolute -bottom-4 left-2 w-6 h-6 bg-black rounded-full"></div>
-                                    <div class="absolute -bottom-4 right-2 w-6 h-6 bg-black rounded-full"></div>
-                                </div>
-                            </div>
-                        </div>
+               <div class="md:col-span-2 flex justify-center">
+                    <div class="w-full max-w-[700px]">
+                        @include('svg.level3')
                     </div>
                 </div>
 
+
                 <!-- Answer Section -->
                 <div class="md:col-span-1">
-                    <form action="{{ route('exercise.submit', $exercise->id) }}" method="POST">
+                    <form id="exercise-form" action="{{ route('exercise.submit', $exercise->id) }}" method="POST">
                         @csrf
                         
                         @php
@@ -95,20 +80,38 @@
                         <div class="bg-white rounded-3xl border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                             <h2 class="text-2xl font-black mb-6 text-black">{{ $exercise->question_text }}</h2>
                             
-                            <div class="space-y-4">
-                                @foreach($exercise->options as $option)
-                                <label class="block cursor-pointer">
-                                    <input type="radio" name="answers[{{ $step->id }}]" value="{{ $option['id'] }}" class="hidden peer" required>
-                                    <div class="p-6 bg-gray-50 rounded-2xl border-4 border-black hover:bg-[#CCFF00] peer-checked:bg-[#CCFF00] peer-checked:scale-105 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                        <p class="text-2xl font-black text-center">{{ $option['text'] }}</p>
+                          <div class="space-y-4">
+                                    @foreach($exercise->options as $option)
+                                    <label class="block cursor-pointer">
+                                        <input
+                                            type="radio"
+                                            name="answers[{{ $step->id }}]"
+                                            value="{{ $option['id'] }}"
+                                            data-action="{{ strtolower($option['action']) }}"
+                                            class="hidden peer"
+                                            required
+                                        >
+                                        <div class="p-6 bg-gray-50 rounded-2xl border-4 border-black
+                                                    hover:bg-[#CCFF00]
+                                                    peer-checked:bg-[#CCFF00]
+                                                    peer-checked:scale-105
+                                                    transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                            <p class="text-2xl font-black text-center">
+                                                {{ $option['text'] }}
+                                            </p>
+                                        </div>
+                                    </label>
+                                    @endforeach
                                     </div>
-                                </label>
-                                @endforeach
-                            </div>
+
                             
-                            <button type="submit" class="w-full mt-6 bg-[#CCFF00] hover:bg-[#B8E600] px-8 py-4 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-                                <span class="text-xl font-black text-black">Jawab</span>
-                            </button>
+                           {{-- <button
+                                    type="button"
+                                    id="submit-btn"
+                                    class="w-full mt-6 bg-[#CCFF00] hover:bg-[#B8E600] px-8 py-4 rounded-full border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                                >
+                                    <span class="text-xl font-black">Jawab</span>
+                                </button> --}}
                         </div>
                     </form>
                 </div>
@@ -129,3 +132,119 @@
     @endif
 </body>
 </html>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const cars = {
+        red: document.getElementById('red-car'),
+        yellow: document.getElementById('yellow-car'),
+        violet: [
+            document.getElementById('violet-car-1'),
+            document.getElementById('violet-car-2'),
+            document.getElementById('violet-car-3'),
+        ],
+        blue: [
+            document.getElementById('blue-car-1'),
+            document.getElementById('blue-car-2'),
+        ],
+    };
+
+    const marking = document.getElementById('marking'); 
+    const crashEffect = document.getElementById('crash-effect'); 
+    const radios = document.querySelectorAll('input[type="radio"]');
+    const form = document.getElementById('exercise-form');
+
+    let locked = false;
+
+    /* ------------------ HELPERS ------------------ */
+    function crash(elements) {
+        elements.forEach(el => {
+            if (!el) return;
+            el.classList.remove('crash');
+            void el.offsetWidth;
+            el.classList.add('crash');
+
+            // Tilt violet-car-2 after impact
+            if (el.id === 'violet-car-2') {
+                const bbox = el.getBBox();
+                const cx = bbox.x + bbox.width / 2;
+                const cy = bbox.y + bbox.height / 2;
+                const transform = el.getAttribute('transform') || '';
+                el.setAttribute('transform', `${transform} rotate(30 ${cx} ${cy})`);
+
+                setTimeout(() => {
+                    el.setAttribute('transform', transform);
+                }, 400);
+            }
+        });
+    }
+
+    function showCrashEffectOn(car, scale = 1) {
+            if (!crashEffect || !car) return;
+
+            // Append crashEffect to the end of parent to bring it on top
+            car.parentNode.appendChild(crashEffect);
+
+            const bbox = car.getBBox();
+            crashEffect.setAttribute('x', bbox.x + bbox.width / 2 - (40 * scale));
+            crashEffect.setAttribute('y', bbox.y - (60 * scale));
+            crashEffect.setAttribute('width', 80 * scale);
+            crashEffect.setAttribute('height', 80 * scale);
+            crashEffect.style.display = 'block';
+
+            setTimeout(() => {
+                crashEffect.style.display = 'none';
+            }, 600);
+        }
+
+
+    function moveRedCar(x, y) {
+        if (cars.red) cars.red.setAttribute('transform', `translate(${x},${y})`);
+        if (marking) marking.setAttribute('transform', `translate(${x},${y})`);
+    }
+
+    /* ------------------ RADIO SELECTION ------------------ */
+    radios.forEach(input => {
+        input.addEventListener('change', () => {
+            if (locked) return;
+            locked = true;
+
+            const action = input.dataset.action;
+
+            Object.values(cars).flat().forEach(car => car && car.classList.remove('crash'));
+            crashEffect.style.display = 'none';
+            radios.forEach(r => r.disabled = true);
+
+            // Move cars
+            if (action === 'back') moveRedCar(0, 70);
+            if (action === 'stop') {
+                cars.violet.forEach(car => car && car.setAttribute('transform', 'translate(-480,0)'));
+                cars.blue.forEach(car => car && car.setAttribute('transform', 'translate(460,0)'));
+            }
+            if (action === 'go') {
+                cars.violet.forEach(car => car && car.setAttribute('transform', 'translate(-300,0)'));
+                cars.blue.forEach(car => car && car.setAttribute('transform', 'translate(170,0)'));
+                moveRedCar(0, -110);
+            }
+
+            const movementDuration = 650;
+            setTimeout(() => {
+                // trigger crash based on selection
+                if (action === 'back') {
+                    crash([cars.red, cars.yellow]);
+                    showCrashEffectOn(cars.yellow, 2);
+                }
+                if (action === 'go') {
+                    crash([cars.red, ...cars.violet, ...cars.blue]);
+                    showCrashEffectOn(cars.violet[1], 2); // violet-car-2 at current location
+                }
+            }, movementDuration);
+
+            setTimeout(() => form.submit(), movementDuration + 2000);
+        });
+    });
+
+});
+</script>
+

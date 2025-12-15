@@ -169,10 +169,14 @@ class ExerciseController extends Controller
             'is_correct' => $isAllCorrect,
         ]);
         
-        $user->increment('xp', $score);
         
         //INI COMMENT
-        if ($isAllCorrect) {
+      if ($isAllCorrect) {
+            $user->xp += ($correctAnswers * 10);
+            $user->save();        
+            $user->updateRank();    
+
+            // UPDATE STREAK
             $streakIncreased = $user->streakUpdate();
 
             return redirect()->route('dashboard')->with([
@@ -181,7 +185,8 @@ class ExerciseController extends Controller
                     ? '🔥 Streak bertambah!'
                     : 'Latihan selesai hari ini!',
             ]);
-        } else {
+        }
+         else {
             return redirect()->route('exercise.show', $exerciseId)
                 ->with('error', "Jawaban belum sempurna. Coba lagi!")
                 ->with('errors_detail', $errorsDetail)

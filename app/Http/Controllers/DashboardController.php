@@ -18,6 +18,8 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
+        $user->updateRank();
+
         Log::info("Data User: ", $user->toArray());
         
         // Load relasi yang dibutuhkan

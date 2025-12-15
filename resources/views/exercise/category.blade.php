@@ -51,7 +51,7 @@
                             <input type="radio" name="answers[{{ $step->id }}]" value="{{ $option['id'] }}" class="hidden peer" required>
                             <div class="bg-white rounded-3xl border-4 border-black p-6 hover:bg-[#CCFF00] peer-checked:bg-[#CCFF00] peer-checked:scale-105 transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                                 <div class="aspect-square bg-gray-100 rounded-2xl border-3 border-black mb-4 flex items-center justify-center overflow-hidden">
-                                    <img src="{{ asset($option['image']) }}" alt="{{ $option['name'] }}" class="w-full h-full object-cover">
+                                    <img src="{{ asset($option['image']) }}" class="w-full h-full object-cover">
                                 </div>
                                 <p class="text-center text-lg font-black">{{ $option['name'] }}</p>
                             </div>

@@ -32,7 +32,7 @@
     <div class="mx-auto py-6">
         <!-- Header -->
       <header class="w-full mb-8">
-            <div class="flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
                 <x-dashboard.player-header :user="$user" :header="$header"/>
                 <x-dashboard.streak-card :user="$user"/>
             </div>

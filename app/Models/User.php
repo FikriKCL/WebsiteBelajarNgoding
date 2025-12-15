@@ -89,21 +89,21 @@ public function rank()
 
     //Ini COMMENT
 
-    public function updateRank()
-    {
-        $xp = $this->xp;
+        public function updateRank()
+        {
+            $xp = $this->xp;
 
-        if ($xp >= 2000) $newRank = 5;
-        elseif ($xp >= 1000) $newRank = 4;
-        elseif ($xp >= 500) $newRank = 3;
-        elseif ($xp >= 300) $newRank = 2;
-        else $newRank = 1;
+            if ($xp >= 2000) $newRank = 5;
+            elseif ($xp >= 1000) $newRank = 4;
+            elseif ($xp >= 500) $newRank = 3;
+            elseif ($xp >= 300) $newRank = 2;
+            else $newRank = 1;
 
-        if ($this->id_rank !== $newRank) {
-            $this->id_rank = $newRank;
-            $this->save();
+            if ($this->id_rank !== $newRank) {
+                $this->id_rank = $newRank;
+                $this->save();
+            }
         }
-    }
     
         public function streakUpdate(): bool
         {

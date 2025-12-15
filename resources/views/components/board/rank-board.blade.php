@@ -27,7 +27,7 @@
                 {{ $isMe ? 'animate-pulse' : '' }}
             "
         >
-            <p class="text-base sm:text-xl md:text-5xl font-jost font-semibold">
+            <p class="text-base md:text-5xl font-jost font-semibold">
                 {{ $position }}
             </p>
         </div>
@@ -35,12 +35,12 @@
         {{-- NAME --}}
         <div class="flex items-center gap-3 sm:text-2xl md:ml-6 md:text-4xl font-medium font-jost text-white">
             {{ $rankUser->name }}
-
+{{-- 
             @if ($isMe)
-                <span class="text-xs font-bold px-2 py-1 rounded-full bg-black text-[#9DFF00]">
+                <span class="text-xs font-bold px-1 py-1 rounded-full bg-black text-[#9DFF00]">
                     KAMU
                 </span>
-            @endif
+            @endif --}}
         </div>
 
         {{-- RIGHT BOX --}}

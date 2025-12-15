@@ -1,4 +1,4 @@
-       <div class="max-w-screen-md mx-auto sm:px-6 lg:px-8 pt-4">
+       <div class="max-w-screen-md mx-auto sm:px-6 lg:px-8 pt-4 z-10">
             <div class="flex items-center justify-center gap-6">
     
                 <div class="w-12 h-12 bg-[#9DFF00] rounded-full border-2 border-black shadow-bottomSm">

@@ -54,10 +54,10 @@ class ExerciseLevelSeeder extends Seeder
             'level_type' => 'category',
             'difficulty' => 2,
             'options' => json_encode([
-                ['id' => 1, 'image' => '/images/apple.png', 'name' => 'Apel', 'category' => 'fruit'],
-                ['id' => 2, 'image' => '/images/banana.png', 'name' => 'Pisang', 'category' => 'fruit'],
-                ['id' => 3, 'image' => '/images/dog.png', 'name' => 'Anjing', 'category' => 'animal'],
-                ['id' => 4, 'image' => '/images/orange.png', 'name' => 'Jeruk', 'category' => 'fruit'],
+                ['id' => 1, 'image' => '/images/apple.svg', 'name' => 'Apel', 'category' => 'fruit'],
+                ['id' => 2, 'image' => '/images/banana.svg', 'name' => 'Pisang', 'category' => 'fruit'],
+                ['id' => 3, 'image' => '/images/sword.svg', 'name' => 'Pedang', 'category' => 'animal'],
+                ['id' => 4, 'image' => '/images/orange.svg', 'name' => 'Jeruk', 'category' => 'fruit'],
             ]),
             'created_at' => now(),
             'updated_at' => now(),
@@ -75,7 +75,7 @@ class ExerciseLevelSeeder extends Seeder
         // Level 3: Conditional Logic
         $exercise3 = DB::table('exercises')->insertGetId([
             'id_skill' => $skillId,
-            'question_text' => 'Jika lampunya merah, apa yang harus dilakukan?',
+            'question_text' => 'Mobil merah akan kearah depan, tetapi lampu merah sedang berwarna merah, apa yang perlu dilakukan mobil merah?',
             'type' => 'Multiple Choice',
             'level_type' => 'conditional',
             'difficulty' => 3,
@@ -83,6 +83,7 @@ class ExerciseLevelSeeder extends Seeder
             'options' => json_encode([
                 ['id' => 1, 'text' => 'BERHENTI', 'action' => 'stop'],
                 ['id' => 2, 'text' => 'JALAN', 'action' => 'go'],
+                ['id' => 3, 'text' => 'MUNDUR', 'action' => 'back'],
             ]),
             'created_at' => now(),
             'updated_at' => now(),

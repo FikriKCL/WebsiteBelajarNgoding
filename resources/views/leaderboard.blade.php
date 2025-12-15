@@ -1,10 +1,9 @@
 <x-app-layout class="bg-white">
     <div class="!scroll-smooth">
-
-        <div class="max-w-screen-md mx-auto sm:px-6 lg:px-8 pt-12">
+        <div class="w-80 md:w-auto max-w-screen-md mx-auto sm:px-6 md:px-8 pt-12">
             <div class="flex items-center justify-center gap-6">
                    <a href="{{ route('dashboard') }}">
-                        <div class="w-12 h-12 bg-[#9DFF00] rounded-full border-2 border-black shadow-bottomSm flex items-center justify-center">
+                        <div class="md:w-12 md:h-12 bg-[#9DFF00] rounded-full border-2 border-black shadow-bottomSm flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"

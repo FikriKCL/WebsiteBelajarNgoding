@@ -9,7 +9,7 @@
                           @if($user->rank && $user->rank->imageUri)
                                     <img src="{{ asset('images/' . $user->rank->imageUri) }}"
                                         alt="{{ $user->rank->name }}"
-                                        class="md:w-60 md:h-90 z-10 select-none pointer-events-none"/>
+                                        class="w-20 md:w-60 md:h-90 z-10 select-none pointer-events-none"/>
                                 
                           @endif
 
