@@ -8,4 +8,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        outDir: 'dist', // make sure this exists or is the same as in Vercel settings
+    },
 });
