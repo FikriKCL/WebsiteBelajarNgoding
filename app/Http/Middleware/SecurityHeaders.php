@@ -17,11 +17,7 @@ class SecurityHeaders
             ->header('Referrer-Policy', 'strict-origin-when-cross-origin')
             ->header(
                 'Content-Security-Policy',
-                "default-src 'self'; 
-                 img-src 'self' data: https:;
-                 script-src 'self' 'unsafe-inline' 'unsafe-eval';
-                 style-src 'self' 'unsafe-inline';
-                 font-src 'self' data:;"
+                "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; font-src 'self' data:;"
             );
     }
 }
