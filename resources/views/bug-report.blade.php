@@ -53,7 +53,7 @@
 
                 <div class="mt-6">
                     <!-- <x-input-label for="name" :value="__('Username')" /> -->
-                    <x-text-input id="description" class="block w-full h-24 rounded-xl" type="text" name="description" :value="old('description')" placeholder="Jelaskan bug nya seperti apa" required autofocus autocomplete="description" />
+                    <textarea id="description" class="block w-full h-24 rounded-xl" type="text" name="description" :value="old('description')" placeholder="Jelaskan bug nya seperti apa" required autofocus autocomplete="description"></textarea>
                     <x-input-error :messages="$errors->get('description')" class="mt-2" />
                 </div>
 
