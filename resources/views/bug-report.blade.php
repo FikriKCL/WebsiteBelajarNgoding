@@ -8,8 +8,8 @@
         <title>{{ config('app.name', 'SIKOCAK') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        {{-- <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -67,7 +67,7 @@
 
                 <div class="flex items-center justify-center flex-col mt-4">
                     <x-register-button class="h-6 text-base ">
-                        {{ __('KIRIM ADUAN') }}
+                        {{ __('Kirim Aduan') }}
                     </x-register-button>
                 </div>
                 @if(session('success'))
