@@ -11,13 +11,15 @@ class SecurityHeaders
     {
         $response = $next($request);
 
-        return $response
-            ->header('X-Content-Type-Options', 'nosniff')
-            ->header('X-Frame-Options', 'DENY')
-            ->header('Referrer-Policy', 'strict-origin-when-cross-origin')
-            ->header(
-                'Content-Security-Policy',
-                "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data: https:; style-src 'self'; script-src 'self'; font-src 'self' data:;"
-            );
+        $response->headers->set(
+            'Content-Security-Policy',
+            "default-src 'self' http: https: data: blob: 'unsafe-inline' 'unsafe-eval';"
+        );
+
+        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
+        $response->headers->set('X-Content-Type-Options', 'nosniff');
+        $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+        return $response;
     }
 }
