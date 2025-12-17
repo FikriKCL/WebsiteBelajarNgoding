@@ -19,9 +19,9 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     
-            public function boot(): void
-            {
-                if (app()->environment('production')) {
+     public function boot(): void
+        {
+            if (app()->environment('local')) {
                     URL::forceScheme('https');
                 }
             }

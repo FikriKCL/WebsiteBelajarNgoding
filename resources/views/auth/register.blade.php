@@ -64,10 +64,10 @@
                     <input 
                         :type="show ? 'text' : 'password'"
                         id="password"
-                        name="password_confirmation"
+                        name="password"
                         required
                         autocomplete="current-password"
-                        placeholder="Password"
+                        placeholder="Password Confirmation"
                         class="block mt-1 w-full rounded-full border-black placeholder:text-black text-sm py-1.5"
                     />
 

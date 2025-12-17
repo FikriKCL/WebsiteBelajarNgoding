@@ -54,11 +54,6 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        
-'options' => extension_loaded('pdo_mysql') ? array_filter([
-    PDO::ATTR_TIMEOUT => 5,
-    PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
-]) : [],
 
         'mariadb' => [
             'driver' => 'mariadb',
