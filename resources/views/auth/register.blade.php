@@ -63,11 +63,11 @@
                 <div class="relative">
                     <input 
                         :type="show ? 'text' : 'password'"
-                        id="password"
+                        id="password_confirmation"
                         name="password_confirmation"
                         required
                         autocomplete="current-password"
-                        placeholder="Password"
+                        placeholder="Ulangi Password"
                         class="block mt-1 w-full rounded-full border-black placeholder:text-black text-sm py-1.5"
                     />
 
