@@ -31,10 +31,8 @@ class RegisteredUserController extends Controller
 {
     $request->validate([
         'name' => ['required', 'string', 'max:255'],
-
         'email' => [
-            'required', 'string', 'lowercase', 'email', 'max:255',
-            'unique:users,email', 
+            'required', 'string', 'lowercase', 'email', 'max:255', 
             function ($attribute, $value, $fail) {
                 $user = User::where('email', $value)->select('id', 'email_verified_at')->first();
                 if ($user && $user->hasVerifiedEmail()) {

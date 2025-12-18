@@ -19,7 +19,7 @@
         <!-- Email Address -->
         <div class="mt-4">
             <!-- <x-input-label for="email" :value="__('Email')" /> -->
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Email" required autocomplete="off" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="Email" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
       {{-- <-- INI COMMENT --> --}}
@@ -31,7 +31,7 @@
                         id="password"
                         name="password"
                         required
-                        autocomplete="off"
+                        autocomplete="current-password"
                         placeholder="Password"
                         class="block mt-1 w-full rounded-full placeholder:text-black text-sm py-1.5"
                     />
@@ -63,11 +63,11 @@
                 <div class="relative">
                     <input 
                         :type="show ? 'text' : 'password'"
-                        id="password_confirmation"
-                        name="password_confirmation"
+                        id="password"
+                        name="password"
                         required
-                        autocomplete="off"
-                        placeholder="Ulangi Password"
+                        autocomplete="current-password"
+                        placeholder="Password Confirmation"
                         class="block mt-1 w-full rounded-full border-black placeholder:text-black text-sm py-1.5"
                     />
 
@@ -108,8 +108,9 @@
     </form>
 
         <div class="flex items-center justify-center md:w-1/2 pb-5">
-                <div class="hidden text-2xl font-semibold md:block  md:ml-12 text-left md:text-3xl leading-tight top-10 ">
-                    Selamat Datang Jagoan!
+                <div class=" text-2xl font-semibold md:ml-12 text-left md:text-3xl leading-tight top-10 ">
+                    Selamat Datang
+                    <p>Jagoan!</p>
                 </div>
             </div>
 </x-register-layout>
