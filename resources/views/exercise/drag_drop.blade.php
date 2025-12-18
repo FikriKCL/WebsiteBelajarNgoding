@@ -274,7 +274,7 @@ form.addEventListener('submit', async e=>{
             showToast(data.popup_message || 'Level selesai!', 'success');
             setTimeout(()=>{
                 if(data.next_url) window.location.href = data.next_url;
-            }, 1500);
+            }, 1000);
         }else{
             showToast(data.error_message || 'Jawaban belum sempurna!', 'error', 4000);
         }
