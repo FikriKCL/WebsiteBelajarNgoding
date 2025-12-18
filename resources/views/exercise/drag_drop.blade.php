@@ -61,6 +61,7 @@
                 <img id="icak" src="{{ asset('images/monster.png') }}" class="absolute w-10 h-10 transition-transform duration-500">
             </div>
             <p class="text-center font-bold mt-4">Susun kode agar Icak sampai tujuan</p>
+            <p class="text-center font-bold mt-4">Cara Main : Drag & Drop</p>
         </div>
 
         <!-- BLOCK CODING -->
@@ -84,6 +85,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
+
+/* =======================
+   TOAST
+======================= */
 const toast = document.getElementById('toast');
 function showToast(msg, type='success', duration=2500){
     toast.textContent = msg;
@@ -92,38 +97,94 @@ function showToast(msg, type='success', duration=2500){
     setTimeout(()=>toast.style.display='none', duration);
 }
 
+/* =======================
+   ELEMENTS & STATE
+======================= */
 const form = document.getElementById('mazeForm');
 const hidden = document.getElementById('code_blocks');
 const finishedInput = document.getElementById('is_finished');
 const program = document.getElementById('program');
-let player = {x:0,y:0,dir:'right'};
+const icak = document.getElementById('icak');
+
+let player = { x:0, y:0, dir:'right' };
 let hasFinished = false;
+let executionStopped = false;
+let currentStepIndex = 0;
+let errorIndex = null;
+
 const TILE = 64;
 const MAP = [
   [0,0,1,0,2],
   [1,0,1,0,1],
-  [0,0,0,0,0],
+  [1,0,0,0,1],
 ];
-const icak = document.getElementById('icak');
 
-function render(){ icak.style.transform=`translate(${player.x*TILE}px, ${player.y*TILE}px)`; }
-function nextPos(){ 
-    let nx=player.x, ny=player.y;
-    if(player.dir==='right') nx++; if(player.dir==='left') nx--;
-    if(player.dir==='up') ny--; if(player.dir==='down') ny++;
-    return {nx, ny};
+/* =======================
+   HELPERS
+======================= */
+function render(){
+    icak.style.transform = `translate(${player.x * TILE}px, ${player.y * TILE}px)`;
 }
+
+function nextPos(){
+    let nx = player.x, ny = player.y;
+    if(player.dir === 'right') nx++;
+    if(player.dir === 'left') nx--;
+    if(player.dir === 'up') ny--;
+    if(player.dir === 'down') ny++;
+    return { nx, ny };
+}
+
+function clearBlockErrors(){
+    [...program.children].forEach(el => el.classList.remove('block-error'));
+}
+
+/* =======================
+   MOVEMENT LOGIC
+======================= */
 function moveForward(){
-    const {nx, ny} = nextPos();
-    if(ny<0||ny>=MAP.length||nx<0||nx>=MAP[0].length){ showToast('🚫 Keluar map', 'error'); return false; }
-    if(MAP[ny][nx]===1){ showToast('🧱 Ada rintangan', 'error'); return false; }
-    player.x=nx; player.y=ny; render();
-    if(MAP[ny][nx]===2) hasFinished=true;
+    if(executionStopped) return false;
+
+    const { nx, ny } = nextPos();
+
+    if(ny < 0 || ny >= MAP.length || nx < 0 || nx >= MAP[0].length){
+        showToast('🚫 Keluar map', 'error');
+        executionStopped = true;
+        errorIndex = currentStepIndex;
+        return false;
+    }
+
+    if(MAP[ny][nx] === 1){
+        showToast('🧱 Ada rintangan', 'error');
+        executionStopped = true;
+        errorIndex = currentStepIndex;
+        return false;
+    }
+
+    player.x = nx;
+    player.y = ny;
+    render();
+
+    if(MAP[ny][nx] === 2){
+        hasFinished = true;
+    }
+
     return true;
 }
-function turnLeft(){ const d=['up','left','down','right']; player.dir=d[(d.indexOf(player.dir)+1)%4]; }
-function turnRight(){ const d=['up','right','down','left']; player.dir=d[(d.indexOf(player.dir)+1)%4]; }
 
+function turnLeft(){
+    const d = ['up','left','down','right'];
+    player.dir = d[(d.indexOf(player.dir)+1) % 4];
+}
+
+function turnRight(){
+    const d = ['up','right','down','left'];
+    player.dir = d[(d.indexOf(player.dir)+1) % 4];
+}
+
+/* =======================
+   DRAG & DROP
+======================= */
 document.getElementById('toolbox').addEventListener('dragstart', e=>{
     if(e.target.dataset.cmd){
         e.dataTransfer.setData('text/plain', e.target.dataset.cmd);
@@ -131,41 +192,73 @@ document.getElementById('toolbox').addEventListener('dragstart', e=>{
 });
 
 program.addEventListener('dragover', e=>e.preventDefault());
+
 program.addEventListener('drop', e=>{
     e.preventDefault();
     const cmd = e.dataTransfer.getData('text/plain');
     if(!cmd) return;
+
     const el = document.createElement('div');
     el.dataset.cmd = cmd;
     el.className = 'mb-2 bg-white px-3 py-2 rounded border-2 border-black flex justify-between';
-    el.innerHTML = `<span>${cmd}</span><button type="button" onclick="this.parentElement.remove()">×</button>`;
+    el.innerHTML = `<span>${cmd}</span>
+        <button type="button" onclick="this.parentElement.remove()">×</button>`;
     program.appendChild(el);
 });
 
+/* =======================
+   RUN PROGRAM
+======================= */
 async function runProgram(cmds){
-    player={x:0,y:0,dir:'right'};
-    hasFinished=false;
+    player = { x:0, y:0, dir:'right' };
+    hasFinished = false;
+    executionStopped = false;
+    currentStepIndex = 0;
+    errorIndex = null;
+
+    clearBlockErrors();
     render();
+
     for(const c of cmds){
-        if(c==='move_forward()') moveForward();
-        if(c==='turn_left()') turnLeft();
-        if(c==='turn_right()') turnRight();
-        await new Promise(r=>setTimeout(r,300));
+        if(executionStopped) break;
+
+        if(c === 'move_forward()') moveForward();
+        if(c === 'turn_left()') turnLeft();
+        if(c === 'turn_right()') turnRight();
+
+        currentStepIndex++;
+        await new Promise(r => setTimeout(r, 300));
+    }
+
+    if(errorIndex !== null){
+        const block = program.children[errorIndex];
+        if(block){
+            block.classList.add('block-error');
+            block.scrollIntoView({ behavior:'smooth', block:'center' });
+        }
     }
 }
 
+/* =======================
+   SUBMIT
+======================= */
 form.addEventListener('submit', async e=>{
     e.preventDefault();
-    const seq = [...program.children].map(b=>b.dataset.cmd);
+
+    const seq = [...program.children].map(b => b.dataset.cmd);
     hidden.value = JSON.stringify(seq);
-    finishedInput.value = hasFinished ? 1 : 0;
 
     await runProgram(seq);
 
-    if(!hasFinished){ showToast('⚠️ Icak belum sampai tujuan!', 'error'); return; }
+    if(!hasFinished){
+        showToast('⚠️ Icak belum sampai tujuan!', 'error');
+        return;
+    }
+
+    finishedInput.value = 1;
 
     const formData = new FormData(form);
-    try {
+    try{
         const res = await fetch(form.action,{
             method:'POST',
             body: formData,
@@ -174,25 +267,25 @@ form.addEventListener('submit', async e=>{
                 'Accept':'application/json'
             }
         });
+
         const data = await res.json();
 
         if(data.success){
             showToast(data.popup_message || 'Level selesai!', 'success');
-            setTimeout(()=>{ if(data.next_url) window.location.href = data.next_url; }, 1500);
-        } else {
-            let errMsg = data.error_message || 'Jawaban belum sempurna. Coba lagi!';
-            if(data.errors_detail){
-                const wrongSteps = Object.keys(data.errors_detail).map(id => `Step ${id}`);
-                errMsg += "\nLangkah yang salah: " + wrongSteps.join(', ');
-            }
-            showToast(errMsg, 'error', 4000);
+            setTimeout(()=>{
+                if(data.next_url) window.location.href = data.next_url;
+            }, 1500);
+        }else{
+            showToast(data.error_message || 'Jawaban belum sempurna!', 'error', 4000);
         }
     }catch(err){
         console.error(err);
         setTimeout(()=>form.submit(), 500);
     }
 });
+
 });
 </script>
+
 </body>
 </html>
