@@ -28,36 +28,39 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required','unique:users,email','string','lowercase','email','max:255',
+{
+    $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        // 1. Gabungkan logika ke dalam satu alur yang efisien
+        'email' => [
+            'required', 'string', 'lowercase', 'email', 'max:255',
+            'unique:users,email', // Cukup gunakan ini untuk validasi dasar
             function ($attribute, $value, $fail) {
-                $user = User::where('email', $value)->first();
-
+                // Hanya jalankan ini jika pengecekan 'unique' di atas lolos (jarang terjadi bentrok)
+                // Atau jika Anda ingin custom logic:
+                $user = User::where('email', $value)->select('id', 'email_verified_at')->first();
                 if ($user && $user->hasVerifiedEmail()) {
                     $fail('Email already taken.');
                 }
             },
         ],
-            'username' => ['required','string','lowercase','alpha-dash'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        'username' => ['required', 'string', 'lowercase', 'alpha-dash', 'unique:users,username'],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'id_rank' => 1
-        ]);
+    // 2. Gunakan database transaction jika aplikasi semakin kompleks (opsional tapi baik)
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'username' => $request->username,
+        'password' => Hash::make($request->password),
+        'id_rank' => 1
+    ]);
 
-        $user->sendEmailVerificationNotification();
-        
-        event(new Registered($user));
+    event(new Registered($user));
 
-        Auth::login($user);
+    Auth::login($user);
 
-        return redirect(route('verification.notice', absolute: false));
-    }
+    return redirect(route('verification.notice', absolute: false));
+}
 }
