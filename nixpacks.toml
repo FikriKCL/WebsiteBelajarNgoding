@@ -2,15 +2,18 @@
 
 [phases.setup]
 # Memaksa Nixpacks menginstal PHP 8.4 dan Node.js versi 20
-nixPkgs = ["php84", "nodejs_20", "npm"]
+nixPkgs = ["php84", "nodejs_25", "npm"]
 
 [phases.install]
 # Menjalankan instalasi dependency PHP
-cmds = ["composer install --optimize-autoloader --no-scripts --no-interaction"]
+cmds = ["composer install", "npm install"]
 
 [phases.build]
-# Menjalankan instalasi NPM dan build asset (Vite/Mix)
-cmds = ["npm install", "npm run build"]
+cmds = [
+    "npm run build", 
+    "php artisan optimize:clear", 
+    "php artisan optimize"
+]
 
 [start]
 # Perintah untuk menjalankan Laravel
