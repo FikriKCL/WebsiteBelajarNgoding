@@ -5,6 +5,7 @@
     class="
         mt-10 place-self-center w-3/4 h-32
         flex items-center
+        justify-center
         border-2 rounded-full shadow-bottomSm
         transition-all duration-300
         hover:scale-105 hover:-translate-y-1
@@ -46,7 +47,7 @@
         {{-- RIGHT BOX --}}
         <div
             class="
-                flex items-center ml-auto
+                flex items-center justify-center ml-auto
                 sm:w-32 sm:h-16 md:w-64 md:h-24
                 shadow-lg border-2 border-black rounded-full px-6
             "

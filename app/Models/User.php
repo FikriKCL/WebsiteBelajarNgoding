@@ -111,7 +111,7 @@ public function rank()
             $last = $this->last_streak_at;
 
             if ($last && $last->equalTo($today)) {
-                return false; // tidak naik
+                return false; 
             }
 
             if (!$last || !$last->equalTo($today->copy()->subDay())) {

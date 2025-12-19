@@ -38,7 +38,6 @@ class UserSeeder extends Seeder
                 'phone_number' => '089655399710',
                 'xp' => 299,
                 'streak' => 500,
-                'streak' => 500,
                 'id_rank' => 1,
                 'last_streak_at' => Carbon::yesterday(),
                 'email_verified_at' => now(),

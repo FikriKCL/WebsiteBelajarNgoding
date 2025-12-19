@@ -14,7 +14,7 @@
     {{-- Name --}}
    <div
         title="{{ $user->name }}"
-        class="w-32 h-10 place-self-center md:w-96 md:h-20 bg-white rounded-full
+        class="flex justify-center items-center w-32 h-10 place-self-center md:w-96 md:h-20 bg-white rounded-full
             border-2 border-black shadow-[0px_6px_0_#777]
             text-sm md:text-3xl text-center py-2 md:py-5 mb-3 font-bold
             truncate overflow-hidden">
@@ -24,7 +24,7 @@
 
    <div
         title="{{ $user->email }}"
-        class="w-32 h-10 place-self-center md:w-64 md:h-16 bg-white rounded-full
+        class="flex justify-center items-center w-32 h-10 place-self-center md:w-64 md:h-16 bg-white rounded-full
             border-2 border-black shadow-[0px_6px_0_#777]
             text-xs md:text-xl text-center py-2 md:py-4 mb-3 font-semibold
             truncate overflow-hidden">

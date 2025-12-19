@@ -1,13 +1,13 @@
 @props(['user'])
 <style>
-.bronze-gradient{
+.diamond-gradient{
     background: linear-gradient(to right,#206179,#3BB3DF,#87DFFF);
 
 }
 </style>
 
 <div class="min-h-screen w-full
-            bg-[linear-gradient(to_right,#206179,#3BB3DF,#87DFFF)] 
+            diamond-gradient 
             flex flex-col items-center p-4 sm:p-6
             overflow-hidden relative">
 
